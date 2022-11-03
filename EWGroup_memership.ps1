@@ -1,11 +1,14 @@
+# ###################################################################
+# This script is to be used by DMTools Support team to query groups used by EnterWorks 
+# application and all their member users.
 # 
-# 
-# 
-# 
+# Before starting check and update accordingly the variables below 
+# $CSVFile ----> set the location to save output files
+# $groups ----> file with all groups to be queried, this file needs to be updated if new groups are assigned to application
 # 
 
 # day/month/year
-$DateTime =Get-Date -f "ddMMyyyy"
+$DateTime = Get-Date -f "ddMMyyyy"
 
 # File name
 $CSVFile = "C:\xom\spttemp\EWGroups_" + $DateTime + ".csv"
@@ -13,13 +16,9 @@ $CSVFile = "C:\xom\spttemp\EWGroups_" + $DateTime + ".csv"
 # Create empty array for CSV data
 $CSVOutput = @()
 
-# distinguishedName can be used as searchbase, you can use one DN or multiple DNs
-# Or use the root domain like DC=exoip,DC=local if looking for domain information
-#$DNs = @(
-#    "DC=exoip,DC=local"
-#)
-#$file = get-content -path C:\xom\SPTTemp\xxxxxxxx.xx""
-$groups = "DMTools.Support.ug"
+# file with groups to be queried by this script
+# $file = get-content -path C:\xom\SPTTemp\xxxxxxxx.xx""
+$groups = get-content -path ".\groups.txt"
 
 # Create progress bar for groups being queried
 $i = 0
@@ -62,19 +61,6 @@ foreach($group in $groups)
 
 
 }
-
-    # # Create hash table and include values
-    # $HashTab = $null
-    # $HashTab = [ordered]@{
-    #     "Name"     = $user.Name
-    #     "Category" = $user.GroupCategory
-    #     "Scope"    = $user.GroupScope
-    #     "MemberOf"  = $user.memberof
-    #     "Users"    = $ADGroup.member
-    # }
-
-    # # Include hash table to CSV array
-    # $CSVOutput += New-Object PSObject -Property $HashTab
 
 # Export to file
 $CSVOutput | Sort-Object Name | Export-Csv -Encoding UTF8 -Path $CSVFile -NoTypeInformation #-Delimiter ";"
