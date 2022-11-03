@@ -1,2 +1,1 @@
-# Include a group per line to be queried by ps script
 DMTools.Support.ug
