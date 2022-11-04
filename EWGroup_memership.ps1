@@ -19,7 +19,7 @@ $groups = get-content -path "F:\DMTools_Serv_admin\DMTools_Serv_admin\groups.txt
 $DateTime = Get-Date -f "ddMMyyyy"
 
 # File name
-$CSVFile = "F:\DMTools_Serv_admin\DMTools_Serv_admin\groups.txt\EWGroups_" + $DateTime + ".csv"
+$CSVFile = "F:\DMTools_Serv_admin\DMTools_Serv_admin\EWGroups_" + $DateTime + ".csv"
 
 # Create empty array for CSV data
 $CSVOutput = @()
@@ -36,7 +36,7 @@ foreach($group in $groups)
     # Write-Progress -Activity "Exporting AD Groups" -status "Processing Group $i of $tot : $status% Completed" -PercentComplete ($i / $tot * 100)
 
     #query each user info inside each group inside $groups 
-    $users = (get-adgroup $group -server na.xom.com:3268 -properties *).members
+    $users = (get-adgroup $group -server xom.com:3268 -properties *).members
     foreach($u in $users)
     {
         # Set up progress bar
@@ -44,7 +44,7 @@ foreach($group in $groups)
         $status = "{0:N0}" -f ($i / $tot * 100)
         Write-Progress -Activity "Exporting AD Groups" -status "Processing Group $i of $tot : $status% Completed" -PercentComplete ($i / $tot * 100)
     
-        $user = get-aduser $u -server na.xom.com:3268 -properties *
+        $user = get-aduser $u -server xom.com:3268 -properties *
 
         # Create hash table and include values
         $HashTab = $null
@@ -57,7 +57,7 @@ foreach($group in $groups)
             # query just DN's for user group membership as they appear on memberof prop of the user, much faster
             # "MemberOf"      = $user.memberof
             # To query user group membership names only and include them separated by ";"
-            "MemberOf"      = ($user.memberof | foreach-object { (Get-ADObject $_ -server na.xom.com).Name }) -join ";
+            "MemberOf"      = ($user.memberof | foreach-object { (Get-ADObject $_ -server xom.com:3268).Name }) -join ";
             "
         }
             # Include hash table to CSV array
