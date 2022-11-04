@@ -24,25 +24,30 @@ $CSVFile = "F:\DMTools_Serv_admin\DMTools_Serv_admin\EWGroups_" + $DateTime + ".
 # Create empty array for CSV data
 $CSVOutput = @()
 
-# Create progress bar for groups being queried
+# Create variables for progress bar for groups being queried
 $i = 0
 $tot = $groups.count
 
 foreach($group in $groups)
 {    
-    # Set up progress bar
-    # $i++
-    # $status = "{0:N0}" -f ($i / $tot * 100)
-    # Write-Progress -Activity "Exporting AD Groups" -status "Processing Group $i of $tot : $status% Completed" -PercentComplete ($i / $tot * 100)
+    # Start progress bar
+    $i++
+    $status = "{0:N0}" -f ($i / $tot * 100)
+    Write-Progress -Activity "Exporting AD Groups" -status "Processing Group $i of $tot : $status% Completed" -PercentComplete ($i / $tot * 100)
 
     #query each user info inside each group inside $groups 
     $users = (get-adgroup $group -server xom.com:3268 -properties *).members
+
+    # Set up progress bar for users inside group
+    $ui = 0
+    $utot = $users.count
+
     foreach($u in $users)
     {
-        # Set up progress bar
-        $i++
-        $status = "{0:N0}" -f ($i / $tot * 100)
-        Write-Progress -Activity "Exporting AD Groups" -status "Processing Group $i of $tot : $status% Completed" -PercentComplete ($i / $tot * 100)
+
+        $ui++
+        $ustatus = "{0:N0}" -f ($ui / $utot * 100)
+        Write-Progress -Activity "Exporting AD users from Group: $group" -status "Processing user $ui of $utot : $status% Completed" -PercentComplete ($ui / $utot * 100)
     
         $user = get-aduser $u -server xom.com:3268 -properties *
 
