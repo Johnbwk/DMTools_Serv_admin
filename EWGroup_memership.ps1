@@ -55,7 +55,7 @@ foreach($group in $groups)
         $HashTab = $null
         $HashTab = [ordered]@{
             "EW AD Group"   = $group
-            "Domain"        = $user.Domain
+            # "Domain"        = $user.Domain
             "Lan ID"        = $user.samaccountname
             "UPN"           = $user.UserPrincipalName
             "Full Name"     = $user.DisplayName
