@@ -11,18 +11,18 @@
 
 Import-Module -Name ActiveDirectory
 
+# file with groups to be queried by this script
+# $groups = get-content -path C:\xom\SPTTemp\xxxxxxxx.xx""
+$groups = get-content -path "F:\DMTools_Serv_admin\DMTools_Serv_admin\groups.txt"
+
 # day/month/year
 $DateTime = Get-Date -f "ddMMyyyy"
 
 # File name
-$CSVFile = "C:\xom\spttemp\EWGroups_" + $DateTime + ".csv"
+$CSVFile = "F:\DMTools_Serv_admin\DMTools_Serv_admin\groups.txt\EWGroups_" + $DateTime + ".csv"
 
 # Create empty array for CSV data
 $CSVOutput = @()
-
-# file with groups to be queried by this script
-# $groups = get-content -path C:\xom\SPTTemp\xxxxxxxx.xx""
-$groups = get-content -path ".\groups.txt"
 
 # Create progress bar for groups being queried
 $i = 0
