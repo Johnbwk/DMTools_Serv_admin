@@ -54,7 +54,7 @@ foreach($group in $groups)
         # Create hash table and include values
         $HashTab = $null
         $HashTab = [ordered]@{
-            "EW AD Group"   = $group.name
+            "EW AD Group"   = $group
             "Domain"        = $user.Domain
             "Lan ID"        = $user.samaccountname
             "UPN"           = $user.UserPrincipalName
