@@ -54,16 +54,18 @@ foreach($group in $groups)
         # Create hash table and include values
         $HashTab = $null
         $HashTab = [ordered]@{
-            "Name"          = $user.Name
-            "Email"         = $user.mail
-            "Principal"     = $user.UserPrincipalName
-            "DisplayName"   = $user.DisplayName
-            "LastLogonDate" = $user.LastLogonDate
+            "EW AD Group"   = $group.name
+            "Domain"        = $user.Domain
+            "Lan ID"        = $user.samaccountname
+            "UPN"           = $user.UserPrincipalName
+            "Full Name"     = $user.DisplayName
+            "Email Address" = $user.mail
+            "Last Logon Date" = $user.LastLogonDate
             # query just DN's for user group membership as they appear on memberof prop of the user, much faster
             # "MemberOf"      = $user.memberof
             # To query user group membership names only and include them separated by ";"
-            "MemberOf"      = ($user.memberof | foreach-object { (Get-ADObject $_ -server xom.com:3268).Name }) -join ";
-            "
+            # "MemberOf"      = ($user.memberof | foreach-object { (Get-ADObject $_ -server xom.com:3268).Name }) -join ";
+            # "
         }
             # Include hash table to CSV array
             $CSVOutput += New-Object PSObject -Property $HashTab
