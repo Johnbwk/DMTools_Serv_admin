@@ -1,11 +1,15 @@
-# ###################################################################
-# This script is to be used by DMTools Support team to query groups used by EnterWorks 
-# application and all their member users.
+# #######################################################################################################
+# Script to be used by DMTools Support team to query groups used by EnterWorks application
+# and all their member users.
 # 
 # Before starting check and update accordingly the variables below 
-# $CSVFile ----> set the location to save output files
-# $groups ----> file with all groups to be queried, this file needs to be updated if new groups are assigned to application
+# $CSVFile ----> set the name and location to save output file
+# $groups ----> file with all groups to be queried by the script, needs to be updated according to report from EW system access
 # 
+# For questions or enhancements please contact Jonathan Bolwerk or email our team's PDL at DMTools.Support.UG
+# #######################################################################################################
+
+Import-Module -Name ActiveDirectory
 
 # day/month/year
 $DateTime = Get-Date -f "ddMMyyyy"
@@ -17,7 +21,7 @@ $CSVFile = "C:\xom\spttemp\EWGroups_" + $DateTime + ".csv"
 $CSVOutput = @()
 
 # file with groups to be queried by this script
-# $file = get-content -path C:\xom\SPTTemp\xxxxxxxx.xx""
+# $groups = get-content -path C:\xom\SPTTemp\xxxxxxxx.xx""
 $groups = get-content -path ".\groups.txt"
 
 # Create progress bar for groups being queried
@@ -25,10 +29,9 @@ $i = 0
 $tot = $groups.count
 
 foreach($group in $groups)
-{
-    
+{    
     # Set up progress bar
-    $i++
+    # $i++
     # $status = "{0:N0}" -f ($i / $tot * 100)
     # Write-Progress -Activity "Exporting AD Groups" -status "Processing Group $i of $tot : $status% Completed" -PercentComplete ($i / $tot * 100)
 
@@ -36,6 +39,8 @@ foreach($group in $groups)
     $users = (get-adgroup $group -server na.xom.com:3268 -properties *).members
     foreach($u in $users)
     {
+        # Set up progress bar
+        $i++
         $status = "{0:N0}" -f ($i / $tot * 100)
         Write-Progress -Activity "Exporting AD Groups" -status "Processing Group $i of $tot : $status% Completed" -PercentComplete ($i / $tot * 100)
     
