@@ -19,7 +19,7 @@ $groups = get-content -path "F:\DMTools_Serv_admin\DMTools_Serv_admin\groups.txt
 $DateTime = Get-Date -f "ddMMyyyy"
 
 # File name
-$CSVFile = "F:\DMTools_Serv_admin\DMTools_Serv_admin\EWGroups_" + $DateTime + ".csv"
+$CSVFile = "F:\emit_enterworks_solutions\Licensing information\EWGroups_" + $DateTime + ".csv"
 
 # Create empty array for CSV data
 $CSVOutput = @()
