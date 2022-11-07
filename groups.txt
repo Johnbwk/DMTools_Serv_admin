@@ -1,1 +1,11 @@
 DMTools.Support.ug
+EW.Enable.Workflow.initiators.ug
+EW.Enterprise.Location.Admin.ug
+EW.Enterprise.Location.Lead.Steward.ug
+EW.Enterprise.Location.Reader.ug
+EW.Enterprise.Location.Steward.ug
+EW.Enterprise.Vendor.Admin.ug
+EW.Enterprise.Vendor.Reader.ug
+EW.Enterprise.Vendor.Steward.ug
+EW.Precisely.Support.ug
+EW.Solution.Support.ug

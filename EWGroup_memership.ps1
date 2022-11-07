@@ -62,9 +62,9 @@ foreach($group in $groups)
             "Email Address" = $user.mail
             "Last Logon Date" = $user.LastLogonDate
             # query just DN's for user group membership as they appear on memberof prop of the user, much faster
-            # "MemberOf"      = $user.memberof
+                # "MemberOf"      = $user.memberof
             # To query user group membership names only and include them separated by ";"
-            # "MemberOf"      = ($user.memberof | foreach-object { (Get-ADObject $_ -server xom.com:3268).Name }) -join ";
+                # "MemberOf"      = ($user.memberof | foreach-object { (Get-ADObject $_ -server xom.com:3268).Name }) -join ";
             # "
         }
             # Include hash table to CSV array
